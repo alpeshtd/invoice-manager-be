@@ -80,6 +80,9 @@ app.use(function (req, res, next) {
 // Authorization middleware- blocks UserType1 but allows UserType2 and UserType3
 app.use(isAuthorized);
 
+const fileRouter = require('./routes/FileRouter');
+app.use("/file", fileRouter);
+
 const appoloServer = new ApolloServer({
   typeDefs,
   resolvers,

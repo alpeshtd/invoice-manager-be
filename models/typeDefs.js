@@ -88,6 +88,18 @@ const typeDefs = `
     address3: String,
     mail: String,
     mobile: String,
+    bankName: String,
+    bankAccNo: String,
+    bankIfsc: String,
+    accHolderName: String,
+    upiId: String,
+    sign: String
+  }
+
+  type File {
+    id: ID!,
+    type: String,
+    base64: String
   }
 
   type Query {
@@ -100,7 +112,9 @@ const typeDefs = `
     invoices: [Invoice],
     invoice(id: ID!): Invoice,
     defaults: [Default],
-    default(id: ID!): Default
+    default(id: ID!): Default,
+    files: [File],
+    file(id: ID!): File,
   }
 
   # Mutation
@@ -209,6 +223,12 @@ const typeDefs = `
       address3: String,
       mail: String,
       mobile: String,
+      bankName: String,
+      bankAccNo: String,
+      bankIfsc: String,
+      accHolderName: String,
+      upiId: String,
+      sign: String
     ): Default
     updateDefault(
         id: ID!,
@@ -219,8 +239,24 @@ const typeDefs = `
         address3: String,
         mail: String,
         mobile: String,
+        bankName: String,
+        bankAccNo: String,
+        bankIfsc: String,
+        accHolderName: String,
+        upiId: String,
+        sign: String
     ): Default
     deleteDefault(id: ID!): Default
+    addFile(
+        type: String,
+        base64: String
+    ): File
+    updateFile(
+      id: ID!,
+      type: String,
+      base64: String
+    ): File
+    deleteFile(id: ID!): File
   }
 `;
 

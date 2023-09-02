@@ -9,7 +9,12 @@ const defaultSchema = new Schema({
     address2: String,
     address3: String,
     mail: String,
-    mobile: String,
+    bankName: String,
+    bankAccNo: String,
+    bankIfsc: String,
+    accHolderName: String,
+    upiId: String,
+    sign: String
 })
 
 module.exports = mongoose.model('Default', defaultSchema);

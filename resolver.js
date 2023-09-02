@@ -1,5 +1,6 @@
 const Customer = require("./models/Customer");
 const Default = require("./models/Default");
+const File = require("./models/File");
 const Invoice = require("./models/Invoice");
 const User = require("./models/User");
 const UserRole = require("./models/UserRole");
@@ -26,6 +27,9 @@ const resolvers = {
     defaults: async () => await Default.find({}),
     default: async (parent, args) =>
       await Default.findById(args.id),
+    files: async () => await File.find({}),
+    file: async (parent, args) =>
+      await File.findById(args.id),
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -198,6 +202,12 @@ const resolvers = {
         address3,
         mail,
         mobile,
+        bankName,
+        bankAccNo,
+        bankIfsc,
+        accHolderName,
+        upiId,
+        sign
       } = args;
       const newDefault = new Default({
         companyName,
@@ -207,6 +217,12 @@ const resolvers = {
         address3,
         mail,
         mobile,
+        bankName,
+        bankAccNo,
+        bankIfsc,
+        accHolderName,
+        upiId,
+        sign
       });
       await newDefault.save();
       return newDefault;
@@ -227,6 +243,34 @@ const resolvers = {
         throw new Error(`Default with ID ${id} not found`);
       }
       return deletedDefault;
+    },
+    addFile: async (parent, args) => {
+      const {
+        type,
+        base64
+      } = args;
+      const newFile = new File({
+        type,
+        base64
+      });
+      await newFile.save();
+      return newFile;
+    },
+    updateFile: async (parent, args) => {
+      const { id } = args;
+      const updatedFile = await File.findByIdAndUpdate(id, args);
+      if (!updatedFile) {
+        throw new Error(`File with ID ${id} not found`);
+      }
+      return updatedFile;
+    },
+    deleteFile: async (parent, args) => {
+      const { id } = args;
+      const deletedFile = await File.findByIdAndDelete(id);
+      if (!deletedFile) {
+        throw new Error(`File with ID ${id} not found`);
+      }
+      return deletedFile;
     },
   },
 };
